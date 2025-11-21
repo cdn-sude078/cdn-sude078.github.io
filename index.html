@@ -1,10 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<meta name="fda7a56f1a201225d42021fb5460f8f714ca80d8" content="fda7a56f1a201225d42021fb5460f8f714ca80d8" />
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> fda7a56f1a201225d42021fb5460f8f714ca80d8 </title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-        </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Video Grid — Free and Simple Video Hosting</title>
+  <meta name="description" content="Versi sederhana tanpa search, sort, upload, toggle width, atau sign-in. Play membuka URL. Iklan internal di bawah.">
+  <style>
+    :root{
+      --bg-1:#071726; --bg-2:#072a34;
+      --accent:#29b6f6; --accent-2:#06b6d4;
+      --muted:rgba(255,255,255,0.75);
+      --glass:rgba(255,255,255,0.03);
+      --card-radius:10px;
+      --container-width:760px;
+      --ad-accent:#2e9a3e;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#e9f6fb;background:
+      radial-gradient(1200px 400px at 10% 10%, rgba(41,182,246,0.03), transparent),
+      linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 100%);}
+    .page{min-height:100vh;padding:28px 20px;display:flex;justify-content:center;align-items:flex-start;}
+    .container{
+      width:var(--container-width); max-width:calc(100% - 40px);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(2,12,18,0.62), inset 0 1px 0 rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Top header - simplified (only brand + title) */
+    .topbar{ display:flex; gap:12px; align-items:center; padding:10px; border-radius:10px;
+      background: linear-gradient(180deg, rgba(2,12,18,0.06), rgba(2,12,18,0.02)); margin-bottom:12px; border:1px solid rgba(255,255,255,0.02); }
+    .brand{ display:flex; gap:10px; align-items:center; }
+    .logo{ width:36px;height:36px;border-radius:8px;background:linear-gradient(45deg,var(--accent),#0077a6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#022;}
+    .site-title{ font-weight:700; font-size:14px; }
+    .site-sub { color:var(--muted); font-size:12px; margin-left:8px; }
+
+    /* External ad */
+    .external-ad { width:100%; border-radius:10px; padding:10px; display:flex; gap:12px; align-items:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.02); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); box-shadow:0 6px 20px rgba(0,0,0,0.4); }
+    .ad-label { width:84px; border-left:4px solid var(--ad-accent); padding-left:10px; font-weight:800; color:var(--ad-accent); }
+    .ad-body { color:var(--muted); font-size:13px; flex:1; }
+
+    /* Grid & cards */
+    .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:start; }
+    .card{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:var(--card-radius); overflow:hidden; box-shadow:0 6px 18px rgba(2,12,18,0.45); border:1px solid rgba(255,255,255,0.03); display:flex; flex-direction:column; }
+    .thumb{ width:100%; height:110px; object-fit:cover; display:block; }
+    .card-body{ padding:10px 12px; display:flex; flex-direction:column; gap:8px; color:#e8f7fb; min-height:120px; }
+    .title-card{ font-weight:800; font-size:13px; }
+    .desc{ font-size:12px; color:var(--muted); min-height:28px; }
+    .card-footer{ margin-top:auto; display:flex; gap:8px; align-items:center; justify-content:space-between; }
+    .goto{ font-size:11px; color:rgba(255,255,255,0.85); padding:6px 8px; border-radius:8px; background:var(--glass); }
+    .play-btn{ padding:6px 10px; border-radius:8px; background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#022; border:none; font-weight:700; cursor:pointer; }
+
+    /* Native ad slot (always at bottom of grid) */
+    .native-ad-slot{ grid-column:1 / -1; display:flex; gap:12px; align-items:center; padding:14px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); box-shadow:0 8px 22px rgba(0,0,0,0.45); margin-top:12px; margin-bottom:6px; }
+    .slot-left{ flex:0 0 86px; height:56px; display:flex; align-items:center; justify-content:center; border-left:4px solid var(--ad-accent); color:var(--ad-accent); font-weight:800; }
+    .slot-right{ flex:1; color:var(--muted); font-size:13px; }
+
+    .grid-footer{ margin-top:12px; display:flex; justify-content:center; gap:8px; padding:14px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); }
+    .btn.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); padding:8px 12px; border-radius:8px; cursor:pointer; }
+
+    @media (max-width:1200px){ .grid{ grid-template-columns:repeat(3,1fr); } .container{ width:calc(var(--container-width) - 60px); } }
+    @media (max-width:880px){ .grid{ grid-template-columns:repeat(2,1fr); } .container{ width: calc(100% - 40px); } }
+    @media (max-width:520px){ .grid{ grid-template-columns:1fr; } .topbar{ flex-direction:column; align-items:stretch; gap:8px; } }
+  </style>
 </head>
+<body>
+  <div class="page">
+    <main class="container" role="main" aria-label="Video grid app">
+
+      <div class="topbar" role="banner" aria-label="Header">
+        <div class="brand">
+          <div class="logo">V</div>
+          <div>
+            <div class="site-title">Video Grid</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- external ad placeholder -->
+<center><script type="text/javascript">
+	atOptions = {
+		'key' : 'cf902c3f231d99e4ed78299963127fdb',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//buffetaccommodating.com/cf902c3f231d99e4ed78299963127fdb/invoke.js"></script>
+</center> 
+
+<section id="grid" class="grid" aria-live="polite"></section>
+<script async="async" data-cfasync="false" src="//buffetaccommodating.com/34414abc94f86276d97e28409968a856/invoke.js"></script>
+<div id="container-34414abc94f86276d97e28409968a856"></div>
+      <!-- footer / load more -->
+      <div class="grid-footer">
+        <button id="loadMore" class="btn secondary">Load more</button>
+        <button id="backTop" class="btn secondary">Back to top</button>
+        <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="394015"></script>
+        
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // --- Data (same sample)
+    const items = [
+      { id:'a1', title:'You will love this feeling', desc:'trust me', thumb:'https://picsum.photos/id/1011/600/338', url:'https://example.com/watch?id=a1' },
+      { id:'a2', title:'Divine spark...', desc:'Awakens my spirit!', thumb:'https://picsum.photos/id/1015/600/338', url:'https://example.com/watch?id=a2' },
+      { id:'a3', title:'That look says more', desc:'than words ever could', thumb:'https://picsum.photos/id/1025/600/338', url:'https://example.com/watch?id=a3' },
+      { id:'a4', title:'What in the world...?', desc:'This is unreal', thumb:'https://picsum.photos/id/1012/600/338', url:'https://example.com/watch?id=a4' },
+      { id:'a5', title:'Wait... WHAT?!', desc:'How is that even possible', thumb:'https://picsum.photos/id/1021/600/338', url:'https://example.com/watch?id=a5' },
+      { id:'a6', title:'Beele this time', desc:'if you fell short, part two', thumb:'https://picsum.photos/id/1027/600/338', url:'https://example.com/watch?id=a6' },
+      { id:'a7', title:'She got a real', desc:'chill vibe', thumb:'https://picsum.photos/id/1016/600/338', url:'https://example.com/watch?id=a7' },
+      { id:'a8', title:'In the bathroom', desc:'of the square', thumb:'https://picsum.photos/id/1005/600/338', url:'https://example.com/watch?id=a8' },
+      { id:'a9', title:'Isabella and Bééle', desc:'in the eye of the hurricane', thumb:'https://picsum.photos/id/1001/600/338', url:'https://example.com/watch?id=a9' },
+      { id:'a10', title:'Dude came outta the blue.', desc:'surprised reaction', thumb:'https://picsum.photos/id/1003/600/338', url:'https://example.com/watch?id=a10' },
+      { id:'a11', title:'Just copped the new iPhone', desc:'first one on the block', thumb:'https://picsum.photos/id/1006/600/338', url:'https://example.com/watch?id=a11' },
+      { id:'a12', title:'Goes Too Far', desc:'watch the clip', thumb:'https://picsum.photos/id/1019/600/338', url:'https://example.com/watch?id=a12' }
+    ];
+
+    const grid = document.getElementById('grid');
+    let shown = 0;
+    const pageSize = 8;
+
+    function buildCard(item){
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML = `
+        <img class="thumb" src="${item.thumb}" alt="${item.title}">
+        <div class="card-body">
+          <div>
+            <div class="title-card">${item.title}</div>
+            <div class="desc">${item.desc}</div>
+          </div>
+          <div class="card-footer">
+            <div class="goto">Open on Play</div>
+            <button class="play-btn" type="button" aria-label="Play ${item.title}">Play</button>
+          </div>
+        </div>
+      `;
+      el.querySelector('.play-btn').addEventListener('click', () => window.open(item.url, '_blank', 'noopener'));
+      return el;
+    }
+
+    function buildNativeAd(){
+      const ad = document.createElement('div');
+      ad.className = 'native-ad-slot';
+      ad.innerHTML = `
+          <div style="font-weight:600;color:var(--ad-accent)">Get More Video Views Load More</div>
+      `;
+      return ad;
+    }
+
+    function render(reset = false){
+      if (reset) { grid.innerHTML = ''; shown = 0; }
+      const toShow = items.slice(shown, shown + pageSize);
+      toShow.forEach(it => {
+        grid.appendChild(buildCard(it));
+        shown++;
+      });
+      // remove existing ad slot if present
+      const existing = grid.querySelector('.native-ad-slot');
+      if (existing) existing.remove();
+      // append native ad at bottom if there is at least one card
+      if (shown > 0) grid.appendChild(buildNativeAd());
+    }
+
+    // initial render
+    render(true);
+
+    document.getElementById('loadMore').addEventListener('click', () => {
+      // remove ad before loading more so it stays at end
+      const existing = grid.querySelector('.native-ad-slot');
+      if (existing) existing.remove();
+      render(false);
+    });
+
+    document.getElementById('backTop').addEventListener('click', () => {
+      document.querySelector('.container').scrollIntoView({ behavior:'smooth' });
+    });
+
+    // accessibility: enter triggers play when focused
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && document.activeElement && document.activeElement.classList.contains('play-btn')) {
+        document.activeElement.click();
+      }
+    });
+  </script>
+</body>
+</html>
