@@ -1,84 +1,164 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Video Grid — Free and Simple Video Hosting</title>
-  <meta name="description" content="Versi sederhana tanpa search, sort, upload, toggle width, atau sign-in. Play membuka URL. Iklan internal di bawah.">
-  <style>
-    :root{
-      --bg-1:#071726; --bg-2:#072a34;
-      --accent:#29b6f6; --accent-2:#06b6d4;
-      --muted:rgba(255,255,255,0.75);
-      --glass:rgba(255,255,255,0.03);
-      --card-radius:10px;
-      --container-width:760px;
-      --ad-accent:#2e9a3e;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#e9f6fb;background:
-      radial-gradient(1200px 400px at 10% 10%, rgba(41,182,246,0.03), transparent),
-      linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 100%);}
-    .page{min-height:100vh;padding:28px 20px;display:flex;justify-content:center;align-items:flex-start;}
-    .container{
-      width:var(--container-width); max-width:calc(100% - 40px);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(2,12,18,0.62), inset 0 1px 0 rgba(255,255,255,0.02);
-      border:1px solid rgba(255,255,255,0.03);
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    :root {
+      
+      --bg-color: #f4f7f6;
+      --card-bg-color: #ffffff;
+      --text-color: #333333;
+      --link-color: #007bff;
+      --link-hover-color: #0056b3;
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-heavy: rgba(0, 0, 0, 0.15);
     }
 
-    /* Top header - simplified (only brand + title) */
-    .topbar{ display:flex; gap:12px; align-items:center; padding:10px; border-radius:10px;
-      background: linear-gradient(180deg, rgba(2,12,18,0.06), rgba(2,12,18,0.02)); margin-bottom:12px; border:1px solid rgba(255,255,255,0.02); }
-    .brand{ display:flex; gap:10px; align-items:center; }
-    .logo{ width:36px;height:36px;border-radius:8px;background:linear-gradient(45deg,var(--accent),#0077a6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#022;}
-    .site-title{ font-weight:700; font-size:14px; }
-    .site-sub { color:var(--muted); font-size:12px; margin-left:8px; }
+    body {
+      background-color: var(--bg-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-color);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      margin: 0;
+      line-height: 1.6;
+    }
 
-    /* External ad */
-    .external-ad { width:100%; border-radius:10px; padding:10px; display:flex; gap:12px; align-items:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.02); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); box-shadow:0 6px 20px rgba(0,0,0,0.4); }
-    .ad-label { width:84px; border-left:4px solid var(--ad-accent); padding-left:10px; font-weight:800; color:var(--ad-accent); }
-    .ad-body { color:var(--muted); font-size:13px; flex:1; }
+    h1 {
+      font-size: clamp(0.9rem, 4.5vw, 2.5rem);
+      color: var(--link-color);
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 3px var(--shadow-light);
+      white-space: nowrap; 
+    }
 
-    /* Grid & cards */
-    .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:start; }
-    .card{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:var(--card-radius); overflow:hidden; box-shadow:0 6px 18px rgba(2,12,18,0.45); border:1px solid rgba(255,255,255,0.03); display:flex; flex-direction:column; }
-    .thumb{ width:100%; height:110px; object-fit:cover; display:block; }
-    .card-body{ padding:10px 12px; display:flex; flex-direction:column; gap:8px; color:#e8f7fb; min-height:120px; }
-    .title-card{ font-weight:800; font-size:13px; }
-    .desc{ font-size:12px; color:var(--muted); min-height:28px; }
-    .card-footer{ margin-top:auto; display:flex; gap:8px; align-items:center; justify-content:space-between; }
-    .goto{ font-size:11px; color:rgba(255,255,255,0.85); padding:6px 8px; border-radius:8px; background:var(--glass); }
-    .play-btn{ padding:6px 10px; border-radius:8px; background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#022; border:none; font-weight:700; cursor:pointer; }
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-    /* Native ad slot (always at bottom of grid) */
-    .native-ad-slot{ grid-column:1 / -1; display:flex; gap:12px; align-items:center; padding:14px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); box-shadow:0 8px 22px rgba(0,0,0,0.45); margin-top:12px; margin-bottom:6px; }
-    .slot-left{ flex:0 0 86px; height:56px; display:flex; align-items:center; justify-content:center; border-left:4px solid var(--ad-accent); color:var(--ad-accent); font-weight:800; }
-    .slot-right{ flex:1; color:var(--muted); font-size:13px; }
+    figure {
+      background-color: var(--card-bg-color);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow-light);
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-    .grid-footer{ margin-top:12px; display:flex; justify-content:center; gap:8px; padding:14px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); }
-    .btn.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); padding:8px 12px; border-radius:8px; cursor:pointer; }
+    figure:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px var(--shadow-heavy);
+    }
 
-    @media (max-width:1200px){ .grid{ grid-template-columns:repeat(3,1fr); } .container{ width:calc(var(--container-width) - 60px); } }
-    @media (max-width:880px){ .grid{ grid-template-columns:repeat(2,1fr); } .container{ width: calc(100% - 40px); } }
-    @media (max-width:520px){ .grid{ grid-template-columns:1fr; } .topbar{ flex-direction:column; align-items:stretch; gap:8px; } }
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+
+    figcaption {
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+      font-size: clamp(0.7rem, 2vw, 1rem);
+      font-weight: 600;
+      color: var(--text-color);
+      flex-grow: 1;
+	  white-space: nowrap;
+    }
+
+    .video-link {
+      display: flex; /* Change to flex */
+      align-items: center; /* Vertically center content */
+      justify-content: center; /* Horizontally center content */
+      width: 100%; /* Or auto / fit-content */
+      box-sizing: border-box;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--link-color);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  
+      white-space: nowrap; 
+    }
+
+    .video-link:hover {
+      background-color: var(--link-hover-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow-heavy);
+    }
+	.next-page-button {
+      margin-top: 30px; 
+      margin-bottom: 50px; 
+    }
+        }
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            background-color: #24292e;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            border-radius: 5px;
+            margin: 18px 0;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background-color: #000;
+        }
+    
+    @media (min-width: 768px) {
+      .gallery-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .video-link {
+        width: auto;
+      }
+    }
+    .hidden-css {
+      display: none !important; 
+
+    }
+    
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <main class="container" role="main" aria-label="Video grid app">
+<script>
+(function(egyt){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = egyt || {};
+s.src = "\/\/exaltedpassage.com\/cgDp9.6Jby2P5sl\/SrWPQT9PNSjjcWwZOlT\/k\/ywNZS\/0j2INSzuAL5fOsTBI_2I";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>    
+  <header>
 
-      <div class="topbar" role="banner" aria-label="Header">
-        <div class="brand">
-          <div class="logo">V</div>
-          <div>
-            <div class="site-title">Video Grid</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- external ad placeholder -->
-<center><script type="text/javascript">
+    <h1>Your Ultimate Video Gallery for Viral Content</h1>
+  </header>
+<script type="text/javascript">
 	atOptions = {
 		'key' : 'cf902c3f231d99e4ed78299963127fdb',
 		'format' : 'iframe',
@@ -88,109 +168,208 @@
 	};
 </script>
 <script type="text/javascript" src="//buffetaccommodating.com/cf902c3f231d99e4ed78299963127fdb/invoke.js"></script>
-</center> 
 
-<section id="grid" class="grid" aria-live="polite"></section>
+  <main>
+    <section class="gallery-container">
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://cdn.aceimg.com/013e8828f.jpg?raw=true" alt="I have to try this at home" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">I have to try this at home</figcaption>
+        <meta itemprop="description" content="A humorous clip showing a person's perspective from behind a pair of shoes." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/URL1SKz11.mp4" />
+        <a href="https://cdn.videy.co/YLUzx23D1.mp4" class="video-link" aria-label="Watch video: behind the shoes">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/7R6chjKB1.jpg?raw=true" alt="Beautiful girls" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Beautiful girls</figcaption>
+        <meta itemprop="description" content="A short video clip of someone rushing, in a hurry." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/NA0xNeGZ1.mp4" />
+        <a href="https://cdn-videykey654.github.io/7R6chjKB1.mp4" class="video-link" aria-label="Watch video: he's in a hurry">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/7dDLn0o71.jpg?raw=true" alt="protein intake 😝" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">protein intake 😝</figcaption>
+        <meta itemprop="description" content="A video portraying someone's struggle or inability to endure a situation." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/bg3xtfL31.mp4" />
+        <a href="https://cdn-videykey654.github.io//7dDLn0o71.mp4" class="video-link" aria-label="Watch video: I couldn't stand it">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/7v8DDSj01.JPG?raw=true" alt="pay with service🛠️💸" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">pay with service🛠️💸</figcaption>
+        <meta itemprop="description" content="Relaxing video of beautiful ocean waves." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/4KEnOYXX1.mp4" />
+        <a href="https://cdn-videykey654.github.io/7v8DDSj01.mp4" class="video-link" aria-label="Watch video: Look at the waves">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/n2dxN5un1.jpg?raw=true" alt="More like Uber Treats" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">More like Uber Treats</figcaption>
+        <meta itemprop="description" content="A video showcasing an ideal or desirable tutor." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/lAStCbav1.mp4" />
+        <a href="https://cdn-videykey654.github.io/n2dxN5un1.mp4" class="video-link" aria-label="Watch video: tutor i always wanted">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/oJpBoBR81.jpg?raw=true" alt="WTF This morning on Instagram LIVE" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">On Instagram LIVE</figcaption>
+        <meta itemprop="description" content="A captivating video highlighting the majestic stripes of a tiger." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/kRUTOHRL1.mp4" />
+        <a href="https://cdn-videykey654.github.io/oJpBoBR81.mp4" class="video-link" aria-label="Watch video: Tiger stripes, fearless">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/qPUANRIf1.jpg?raw=true" alt="Kisses just for you💏🏿" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Kisses just for you💏🏿</figcaption>
+        <meta itemprop="description" content="A dynamic video of people dancing or engaging in a strenuous activity." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/UmlFZ5Lv1.mp4" />
+        <a href="https://cdn-videykey654.github.io/qPUANRIf1.mp4" class="video-link" aria-label="Watch video: Love got us sweatin">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/qojUEcwN1.jpg?raw=true" alt="Sarah Lynn ●" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Sarah Lynn ●</figcaption>
+        <meta itemprop="description" content="A video focusing on pink painted toes, possibly in a celebratory context." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/uKvPHWBp1.mp4" />
+        <a href="https://cdn-videykey654.github.io/qojUEcwN1.mp4" class="video-link" aria-label="Watch video: Pink toes for the win">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/sGE0bP8L1.jpg?raw=true" alt="She who asked" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">She who asked</figcaption>
+        <meta itemprop="description" content="A motivational video about feeling blessed or highly favored." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/iRBuM8DN1.mp4" />
+        <a href="https://cdn-videykey654.github.io/sGE0bP8L1.mp4" class="video-link" aria-label="Watch video: I'm highly favored">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/uudnav3W1.jpg?raw=true" alt="Red bones my weakness" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Red bones my weakness</figcaption>
+        <meta itemprop="description" content="A video depicting something that causes intense burning or passion." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/cfXoD4Wt1.mp4" />
+        <a href="https://cdn-videykey654.github.io/uudnav3W1.mp4" class="video-link" aria-label="Watch video: makes everything burn">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/ux9u9F7V1.jpg?raw=true" alt="need a definite" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">need a definite</figcaption>
+        <meta itemprop="description" content="A video showcasing a woman's bravery or daring act." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/Zqke9Nw91.mp4" />
+        <a href="https://cdn-videykey654.github.io/ux9u9F7V1.mp4" class="video-link" aria-label="Watch video: This woman is very brave">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/v0r7Alvo1.jpg?raw=true" alt="She just enjoyed it🥂" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">She just enjoyed it🥂</figcaption>
+        <meta itemprop="description" content="A video clip of someone doing something unexpected or bold in a public setting." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/wQUqfhds1.mp4" />
+        <a href="https://cdn-videykey654.github.io/v0r7Alvo1.mp4" class="video-link" aria-label="Watch video: actually did it in public">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/v7jpUVXf1.jpg?raw=true" alt="enjoy the weekend" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">enjoy the weekend</figcaption>
+        <meta itemprop="description" content="A cute video featuring a beautiful cat." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/ECvAFrSS1.mp4" />
+        <a href="https://cdn-videykey654.github.io/v7jpUVXf1.mp4" class="video-link" aria-label="Watch video: Pretty Kitty">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/ycpBWSyT.jpg?raw=true" alt="Rasta and playing" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Rasta and playing</figcaption>
+        <meta itemprop="description" content="A video capturing an event or object situated in the middle of a road." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/tf6Qm5ZE1.mp4" />
+        <a href="https://cdn-videykey654.github.io/ycpBWSyT1.mp4" class="video-link" aria-label="Watch video: in the middle of the road">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/yw2EyE8r1.jpg?raw=true" alt="After coming home " itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">After coming home </figcaption>
+        <meta itemprop="description" content="A video showing interactions or activities involving a brother-in-law." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/KLJYr2fp1.mp4" />
+        <a href="https://cdn-videykey654.github.io/yw2EyE8r1.mp4" class="video-link" aria-label="Watch video: with brother-in-law">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/ADdQW.jpg?raw=true" alt="Stunning landscape with an impactful visual effect" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Want more of my meat</figcaption>
+        <meta itemprop="description" content="A video featuring a beautiful view with an unexpected or powerful element." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/Jn93oIB21.mp4" />
+        <a href="https://caitlinogletree.github.io/ADdQW.mp4" class="video-link" aria-label="Watch video: beautiful view hit harder">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/lnoCJkG81.jpg?raw=true" alt="Video of a person from OnlyFans" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Try planting</figcaption>
+        <meta itemprop="description" content="A video clip featuring content from an OnlyFans creator." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/qeOC3VYU1.mp4" />
+        <a href="https://caitlinogletree.github.io/lnoCJkG81.mp4" class="video-link" aria-label="Watch video: Her OF video">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/zTJRQ.jpg?raw=true" alt="People contemplating if they can have something desirable" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Attention 💋</figcaption>
+        <meta itemprop="description" content="A video exploring the desire or possibility of possessing something." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/SZgPtiDm1.mp4" />
+        <a href="https://caitlinogletree.github.io/zTJRQ.mp4" class="video-link" aria-label="Watch video: Can we have this">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/H4dDc6kF1.jpg?raw=true" alt="A person described as ideal for a wife" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">she doesn't stop</figcaption>
+        <meta itemprop="description" content="A video showcasing qualities considered ideal for a wife." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/exRhgI5o1.mp4" />
+        <a href="https://caitlinogletree.github.io/H4dDc6kF1.mp4 " class="video-link" aria-label="Watch video: That's wife type">Watch Video Now</a>
+      </figure>
+
+      <figure itemscope itemtype="http://schema.org/VideoObject">
+        <img src="https://github.com/adrielis0801/Mabonx.mp4/blob/main/1zPFbdo61.jpg?raw=true" alt="Person engaged in top riding, skilled and adventurous" itemprop="thumbnailUrl" loading="lazy" width="180" height="180" />
+        <figcaption itemprop="name">Sweet face fool😏</figcaption>
+        <meta itemprop="description" content="A video clip featuring someone excelling in a top riding activity." />
+        <meta itemprop="uploadDate" content="2025-08-02" />
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/Yf43JBWu1.mp4" />
+        <a href="https://caitlinogletree.github.io/1zPFbdo61.mp4 " class="video-link" aria-label="Watch video: see you in top riding">Watch Video Now</a>
+      </figure>
+    </section>
+  </main>
+  <div>
+
+<br>
+<br>
+<br>
+<br>
+        <link itemprop="contentUrl" href="https://brexit-web.github.io/Yf43JBWu1.mp4" />
+        <a href="https://cdn-sude078.github.io" class="video-link">🔗 SEE MORE VIDEOS</a>
+</div>
+
+  <footer>
+    <p>&copy; 2025 Videy.co. All rights reserved.</p>
+    <div id="secretMessage" class="hidden-css">This is a secret message, hidden by default.</div>
+  </footer>
 <script async="async" data-cfasync="false" src="//buffetaccommodating.com/34414abc94f86276d97e28409968a856/invoke.js"></script>
 <div id="container-34414abc94f86276d97e28409968a856"></div>
-      <!-- footer / load more -->
-      <div class="grid-footer">
-        <button id="loadMore" class="btn secondary">Load more</button>
-        <button id="backTop" class="btn secondary">Back to top</button>
-        <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="394015"></script>
-        
-      </div>
-    </main>
-  </div>
 
-  <script>
-    // --- Data (same sample)
-    const items = [
-      { id:'a1', title:'You will love this feeling', desc:'trust me', thumb:'https://cdn.aceimg.com/40c857081.jpg', url:'https://cdn.videy.co/Knsj3bdK1.mp4' },
-      { id:'a2', title:'Divine spark...', desc:'Awakens my spirit!', thumb:'https://cdn.aceimg.com/b7f3fc866.jpg', url:'https://cdn.videy.co/ADccAn051.mp4' },
-      { id:'a3', title:'That look says more', desc:'than words ever could', thumb:'https://cdn.aceimg.com/5fd489ee2.jpg', url:'https://cdn.videy.co/ueeTYYhD1.mp4' },
-      { id:'a4', title:'What in the world...?', desc:'This is unreal', thumb:'https://cdn.aceimg.com/56df22112.jpg', url:'https://cdn.videy.co/zNv7KfL91.mp4' },
-      { id:'a5', title:'Wait... WHAT?!', desc:'How is that even possible', thumb:'https://cdn.aceimg.com/5403176fd.jpg', url:'https://cdn.videy.co/6eVZCMeC1.mp4' },
-      { id:'a6', title:'Beele this time', desc:'if you fell short, part two', thumb:'https://picsum.photos/id/1027/600/338', url:'https://cdn.videy.co/bejJf8F71.mp4' },
-      { id:'a7', title:'She got a real', desc:'chill vibe', thumb:'https://cdn.aceimg.com/0ff87ba62.jpg', url:'https://cdn.videy.co/lTEmbma81.mp4' },
-      { id:'a8', title:'In the bathroom', desc:'of the square', thumb:'https://cdn.aceimg.com/82c02f976.jpg', url:'https://cdn.videy.co/WkDCdtUt1.mp4' },
-      { id:'a9', title:'Isabella and Bééle', desc:'in the eye of the hurricane', thumb:'https://cdn.aceimg.com/c04b9271e.jpg', url:'https://cdn.videy.co/8FTsphVR1.mp4' },
-      { id:'a10', title:'Dude came outta the blue.', desc:'surprised reaction', thumb:'https://cdn.aceimg.com/d48857229.jpg', url:'https://example.com/watch?id=a10' },
-      { id:'a11', title:'Just copped the new iPhone', desc:'first one on the block', thumb:'https://cdn.aceimg.com/4aa57091c.jpg', url:'https://cdn.videy.co/f050LD2P1.mp4' },
-      { id:'a12', title:'Goes Too Far', desc:'watch the clip', thumb:'https://cdn.aceimg.com/b114a30da.jpg', url:'https://cdn.videy.co/wJVjHTzu1.mp4' }
-    ];
-
-    const grid = document.getElementById('grid');
-    let shown = 0;
-    const pageSize = 8;
-
-    function buildCard(item){
-      const el = document.createElement('article');
-      el.className = 'card';
-      el.innerHTML = `
-        <img class="thumb" src="${item.thumb}" alt="${item.title}">
-        <div class="card-body">
-          <div>
-            <div class="title-card">${item.title}</div>
-            <div class="desc">${item.desc}</div>
-          </div>
-          <div class="card-footer">
-            <div class="goto">Open on Play</div>
-            <button class="play-btn" type="button" aria-label="Play ${item.title}">Play</button>
-          </div>
-        </div>
-      `;
-      el.querySelector('.play-btn').addEventListener('click', () => window.open(item.url, '_blank', 'noopener'));
-      return el;
-    }
-
-    function buildNativeAd(){
-      const ad = document.createElement('div');
-      ad.className = 'native-ad-slot';
-      ad.innerHTML = `
-          <div style="font-weight:600;color:var(--ad-accent)">Get More Video Views Load More</div>
-      `;
-      return ad;
-    }
-
-    function render(reset = false){
-      if (reset) { grid.innerHTML = ''; shown = 0; }
-      const toShow = items.slice(shown, shown + pageSize);
-      toShow.forEach(it => {
-        grid.appendChild(buildCard(it));
-        shown++;
-      });
-      // remove existing ad slot if present
-      const existing = grid.querySelector('.native-ad-slot');
-      if (existing) existing.remove();
-      // append native ad at bottom if there is at least one card
-      if (shown > 0) grid.appendChild(buildNativeAd());
-    }
-
-    // initial render
-    render(true);
-
-    document.getElementById('loadMore').addEventListener('click', () => {
-      // remove ad before loading more so it stays at end
-      const existing = grid.querySelector('.native-ad-slot');
-      if (existing) existing.remove();
-      render(false);
-    });
-
-    document.getElementById('backTop').addEventListener('click', () => {
-      document.querySelector('.container').scrollIntoView({ behavior:'smooth' });
-    });
-
-    // accessibility: enter triggers play when focused
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && document.activeElement && document.activeElement.classList.contains('play-btn')) {
-        document.activeElement.click();
-      }
-    });
-  </script>
-</body>
-</html>
-<!-- Histats.com  START  (aync)-->
+	<!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4992245,4,511,95,18,00000000']);
 _Hasync.push(['Histats.fasi', '1']);
