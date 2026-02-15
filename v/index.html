@@ -5,7 +5,6 @@
 <title>Watch on Videy - Free and Simple Video Hosting</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="icon" href="https://videy.co/favicon.ico">
 
 <style>
@@ -22,17 +21,18 @@ body{
 
 a{text-decoration:none;color:inherit}
 
-/* ===== IKLAN (DISEMPURNAKAN) ===== */
-.ad-sticky-top {
+/* ===== IKLAN (ANTI BLANK) ===== */
+.ad-sticky-top{
   position: sticky;
   top: 12px;
   z-index: 999;
+  width: 100%;
+  min-height: 260px; /* PENTING */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 12px 0;
-  width: 100%;
-  background: #fff;
+  background:#fff;
 }
 
 /* ===== HEADER ===== */
@@ -85,23 +85,6 @@ video{
   object-fit:contain;
 }
 
-/* ===== DOWNLOAD ===== */
-.download-wrap{
-  margin-top:14px;
-}
-.download-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 22px;
-  border-radius:999px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:600;
-  font-size:14px;
-}
-.download-btn:hover{background:#1e40af}
-
 /* ===== MOBILE ===== */
 @media(max-width:768px){
   .main-header{display:none}
@@ -112,15 +95,6 @@ video{
     max-width:420px;
     aspect-ratio:9/16;
     border-radius:0;
-  }
-
-  video{
-    touch-action:manipulation;
-  }
-
-  .download-btn{
-    padding:12px 26px;
-    font-size:15px;
   }
 
   .ad-sticky-top{
@@ -138,23 +112,14 @@ footer{
   color:#777;
 }
 </style>
-<script src="https://effectivegatecpm.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
+
+<script data-cfasync="false" src="https://effectivegatecpm.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
 </head>
 
 <body>
 
-<div class="ad-sticky-top">
-<script>
-  atOptions = {
-    'key' : '23ab05ba87deb3622b156e51d0fb782f',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://petsrulefondness.com/23ab05ba87deb3622b156e51d0fb782f/invoke.js"></script>
-</div>
+<!-- IKLAN -->
+<div class="ad-sticky-top" id="topAd"></div>
 
 <!-- HEADER -->
 <header class="main-header">
@@ -165,7 +130,6 @@ footer{
 </header>
 
 <div class="video-page">
-
   <div class="video-card">
     <video
       id="video"
@@ -173,14 +137,11 @@ footer{
       preload="metadata"
       playsinline
       webkit-playsinline
-      controlsList="nodownload nofullscreen noplaybackrate">
+      controlsList="nodownload noplaybackrate">
     </video>
   </div>
 
-<footer>
-  © 2025 • Videy
-</footer>
-
+  <footer>© 2025 • Videy</footer>
 </div>
 
 <!-- Histats.com  START  (aync)-->
@@ -196,8 +157,32 @@ hs.src = ('//s10.histats.com/js15_as.js');
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
 
-<!-- PLAYER LOGIC -->
+<!-- PLAYER -->
 <script src="player.js"></script>
+
+<!-- ===== IKLAN LOAD (DELAY + RETRY) ===== -->
+<script>
+setTimeout(function(){
+  window.atOptions = {
+    key : '23ab05ba87deb3622b156e51d0fb782f',
+    format : 'iframe',
+    height : 250,
+    width : 300,
+    params : {}
+  };
+
+  var s = document.createElement("script");
+  s.src = "https://petsrulefondness.com/23ab05ba87deb3622b156e51d0fb782f/invoke.js";
+  document.getElementById("topAd").appendChild(s);
+}, 1000);
+
+/* retry kalau blank */
+setTimeout(function(){
+  if(!document.querySelector('#topAd iframe')){
+    location.reload();
+  }
+}, 3500);
+</script>
 
 </body>
 </html>
