@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Watch on Videy - Free and Simple Video Hosting</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<link rel="icon" href="https://videy.co/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:#fff;
+  color:#111;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+a{text-decoration:none;color:inherit}
+
+/* ===== HEADER ===== */
+.main-header{
+  border-bottom:1px solid #e5e7eb;
+  padding:14px 0;
+}
+.header-container{
+  max-width:1170px;
+  margin:auto;
+  padding:0 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header-title{
+  font-size:26px;
+  font-weight:700;
+}
+.header-upload-btn{
+  background:#f3f4f6;
+  padding:8px 16px;
+  border-radius:16px;
+  font-weight:600;
+}
+
+/* ===== PAGE ===== */
+.video-page{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:24px;
+}
+
+/* ===== PLAYER ===== */
+.video-card{
+  width:820px;
+  max-width:95vw;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+video{
+  width:100%;
+  height:100%;
+  background:#000;
+  object-fit:contain;
+}
+
+/* ===== DOWNLOAD ===== */
+.download-wrap{
+  margin-top:14px;
+}
+.download-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 22px;
+  border-radius:999px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
+  font-size:14px;
+}
+.download-btn:hover{background:#1e40af}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .main-header{display:none}
+  .video-page{margin-top:0}
+
+  .video-card{
+    width:100%;
+    max-width:420px;
+    aspect-ratio:9/16;
+    border-radius:0;
+  }
+
+  video{
+    touch-action:manipulation;
+  }
+
+  .download-btn{
+    padding:12px 26px;
+    font-size:15px;
+  }
+}
+
+/* ===== FOOTER ===== */
+footer{
+  margin-top:auto;
+  padding:20px;
+  text-align:center;
+  font-size:14px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="main-header">
+  <div class="header-container">
+    <span class="header-title">Videy</span>
+    <a class="header-upload-btn" href="/">Upload</a>
+  </div>
+</header>
+
+<!-- PAGE -->
+<main class="video-page">
+  <div class="video-card">
+    <video id="video" controls autoplay playsinline></video>
+  </div>
+</main>
+
+<footer>
+  © 2025 • Videy
+</footer>
+
+<script>
+(function(ssjj){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = ssjj || {};
+s.src = "\/\/physicalrole.com\/c\/DK9o6.br2V5dlVS-WjQ-9ANjjLcewlOBT\/kLygN\/SK0J2\/NkzTAW5ROCTxIk2T";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script><!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,4992245,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  -->
+
+<!-- PLAYER LOGIC -->
+<script src="player.js"></script>
+
+</body>
+</html>
