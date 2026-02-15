@@ -1,14 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Watch on Videy - Free and Simple Video Hosting</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="no-referrer-when-downgrade">
-
+<meta name="referrer" content="no-referrer-when-downgrade" />
 <link rel="icon" href="https://videy.co/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -134,12 +132,19 @@ footer{
   </div>
 </header>
 
-<!-- PAGE -->
-<main class="video-page">
+<div class="video-page">
+
   <div class="video-card">
-    <video id="video" controls autoplay playsinline></video>
+    <video
+      id="video"
+      controls
+      preload="metadata"
+      playsinline
+      webkit-playsinline
+      controlsList="nodownload noplaybackrate">
+    </video>
   </div>
-</main>
+  </div>
 
 <footer>
   © 2025 • Videy
