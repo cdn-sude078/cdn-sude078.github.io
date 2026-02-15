@@ -7,7 +7,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -17,11 +16,14 @@ body{
   font-family:'Inter',sans-serif;
   background:#fff;
   color:#0f172a;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
 }
 .page{
   min-height:100vh;
   display:flex;
   flex-direction:column;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 
 /* HEADER */
@@ -41,30 +43,35 @@ body{
   border:none;
   padding:8px 18px;
   border-radius:999px;
+  font-size:.9rem;
   font-weight:600;
+  min-height:48px;
 }
 
 /* CENTER */
 .center{
   flex:1;
-  padding:28px 16px;
+  padding:28px 16px 32px;
   display:flex;
   flex-direction:column;
+  justify-content:center;
   align-items:center;
   text-align:center;
 }
 .center h1{
-  font-size:2rem;
+  font-size:1.9rem;
   font-weight:800;
+  line-height:1.15;
 }
 .center h1 span{color:#6b7280}
 .subtitle{
-  margin-top:8px;
+  margin-top:10px;
   color:#6b7280;
+  font-size:.95rem;
 }
 
 /* DROP */
-#dropArea{
+.drop-area{
   width:100%;
   max-width:420px;
   margin-top:24px;
@@ -72,12 +79,14 @@ body{
   border:2px dashed #cbd5e1;
   border-radius:16px;
   color:#6b7280;
-  transition:.2s;
-  cursor:pointer;
+  font-size:.95rem;
+  transition:all .25s ease;
 }
-#dropArea.drag{
+.drop-area.drag{
   border-color:#0f172a;
+  color:#0f172a;
   background:#f8fafc;
+  transform:scale(1.02);
 }
 
 /* BUTTON */
@@ -91,10 +100,17 @@ body{
   border:none;
   border-radius:999px;
   font-weight:600;
+  font-size:1rem;
+  min-height:48px;
+  transition:transform .15s ease, opacity .15s ease;
+}
+.main-upload:active{
+  transform:scale(.97);
+  opacity:.9;
 }
 
 /* PROGRESS */
-#progressWrap{
+.progress-wrap{
   width:100%;
   max-width:420px;
   height:6px;
@@ -104,10 +120,31 @@ body{
   overflow:hidden;
   display:none;
 }
-#progressBar{
+.progress-bar{
   height:100%;
   width:0%;
   background:#0f172a;
+  transition:width .25s ease;
+}
+
+/* FOOTER */
+.footer{
+  padding:18px 16px 24px;
+  text-align:center;
+  font-size:.8rem;
+}
+.footer a{
+  color:#6b7280;
+  margin:0 6px;
+  text-decoration:none;
+}
+
+/* DESKTOP */
+@media (min-width:768px){
+  .topbar{padding:24px 32px}
+  .logo{font-size:1.4rem}
+  .center h1{font-size:3rem}
+  .main-upload,.drop-area,.progress-wrap{max-width:520px}
 }
 </style>
 </head>
@@ -124,7 +161,7 @@ body{
   <h1>Upload your videos<br><span>and share</span></h1>
   <p class="subtitle">Free and simple video hosting.</p>
 
-  <div id="dropArea">
+  <div class="drop-area" id="dropArea">
     Drag & Drop your video here or tap to select
   </div>
 
@@ -132,15 +169,15 @@ body{
 
   <input type="file" id="fileInput" accept="video/mp4,video/quicktime" hidden>
 
-  <div id="progressWrap">
-    <div id="progressBar"></div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar" id="progressBar"></div>
   </div>
 </main>
 
 <footer class="footer">
-  <a href="#">Terms</a> · <a href="#">Report</a>
+  <a href="#">Terms of Service</a>
+  <a href="#">Report Abuse</a>
 </footer>
-
 </div>
 
 <script src="script.js"></script>
