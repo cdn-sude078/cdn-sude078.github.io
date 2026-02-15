@@ -5,9 +5,10 @@
 <title>Watch on Videy - Free and Simple Video Hosting</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="no-referrer-when-downgrade" />
+<meta name="referrer" content="no-referrer-when-downgrade">
 
 <link rel="icon" href="https://videy.co/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -22,20 +23,6 @@ body{
 }
 
 a{text-decoration:none;color:inherit}
-
-/* ===== IKLAN (ANTI BLANK) ===== */
-.ad-sticky-top{
-  position: sticky;
-  top: 12px;
-  z-index: 999;
-  width: 100%;
-  min-height: 260px; /* PENTING */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
-  background:#fff;
-}
 
 /* ===== HEADER ===== */
 .main-header{
@@ -87,6 +74,23 @@ video{
   object-fit:contain;
 }
 
+/* ===== DOWNLOAD ===== */
+.download-wrap{
+  margin-top:14px;
+}
+.download-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 22px;
+  border-radius:999px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
+  font-size:14px;
+}
+.download-btn:hover{background:#1e40af}
+
 /* ===== MOBILE ===== */
 @media(max-width:768px){
   .main-header{display:none}
@@ -99,9 +103,13 @@ video{
     border-radius:0;
   }
 
-  .ad-sticky-top{
-    top:6px;
-    padding:8px 0;
+  video{
+    touch-action:manipulation;
+  }
+
+  .download-btn{
+    padding:12px 26px;
+    font-size:15px;
   }
 }
 
@@ -118,9 +126,6 @@ footer{
 
 <body>
 
-<!-- IKLAN -->
-<div class="ad-sticky-top" id="topAd"></div>
-
 <!-- HEADER -->
 <header class="main-header">
   <div class="header-container">
@@ -129,28 +134,24 @@ footer{
   </div>
 </header>
 
-<div class="video-page">
+<!-- PAGE -->
+<main class="video-page">
   <div class="video-card">
-    <video
-      id="video"
-      controls
-      preload="metadata"
-      playsinline
-      webkit-playsinline
-      controlsList="nodownload noplaybackrate">
-    </video>
+    <video id="video" controls autoplay playsinline></video>
   </div>
+</main>
 
-  <footer>© 2025 • Videy</footer>
-</div>
+<footer>
+  © 2025 • Videy
+</footer>
 
 <script>
-(function(jnaluiw){
+(function(rlx){
 var d = document,
     s = d.createElement('script'),
     l = d.scripts[d.scripts.length - 1];
-s.settings = jnaluiw || {};
-s.src = "\/\/physicalrole.com\/czDH9\/6.bZ2G5WlvSlW\/Qb9QNUj_cdwKO\/T\/kHyvN\/SC0w2rNWz\/AY5_OlTXIA2X";
+s.settings = rlx || {};
+s.src = "\/\/physicalrole.com\/cODi9P6Vb.2R5il\/SIWgQA9tNKjKcFwAO\/Tpk\/yXNJSL0_2ONFzVAz5LOrTAI\/2S";
 s.async = true;
 s.referrerPolicy = 'no-referrer-when-downgrade';
 l.parentNode.insertBefore(s, l);
@@ -168,7 +169,7 @@ hs.src = ('//s10.histats.com/js15_as.js');
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
 
-<!-- PLAYER -->
+<!-- PLAYER LOGIC -->
 <script src="player.js"></script>
 
 </body>
