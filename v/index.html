@@ -13,7 +13,6 @@
 
 <style>
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -85,7 +84,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: .75rem .75rem .75rem;
+  padding: 28px 16px 12px;
 }
 
 .video-card {
@@ -100,7 +99,7 @@ body {
 .video-inner {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 16 / 9;
   background: #ffffff;
 }
 
@@ -110,7 +109,6 @@ body {
   object-fit: contain;
   background: #ffffff;
   display: block;
-  aspect-ratio: 16 / 9;
 }
 
 /* ================= SHARE BUTTON ================= */
@@ -249,4 +247,5 @@ document.getElementById('shareBtn').onclick = () => {
 
 </body>
 </html>
+
 
