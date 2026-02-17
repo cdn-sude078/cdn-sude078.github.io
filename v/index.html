@@ -3,152 +3,234 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Watch on Videy Family - Free and Simple Video Hosting</title>
+<title>Watch on Videy - Free and Simple Video Hosting</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="icon" href="https://videy.co/favicon.ico">
 
-<!-- ================= STYLES ================= -->
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  html, body {
-    height: 100%;
-    font-family: 'Inter', Arial, sans-serif;
-    background: #fff;
-    color: #111;
-  }
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Inter, Arial, sans-serif;
+  background: #ffffff;
+  color: #111;
+}
 
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-  }
+/* BODY FLEX */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* HEADER */
-  .main-header {
-    width: 100%;
-    padding: 12px 0;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 100;
-  }
+/* ================= HEADER ================= */
+.main-header {
+  width: 100%;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-  .header-container {
-    max-width: 1170px;
-    margin: 0 auto;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .header-title {
-    font-size: 28px;
-    font-weight: 700;
-  }
+.header-title {
+  font-size: 28px;
+  font-weight: 700;
+}
 
-  .header-upload-btn {
-    background: #f3f4f6;
-    padding: 9px 16px;
-    border-radius: 16px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #111;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-  }
+.header-upload-btn {
+  background: #111827;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
 
-  .header-upload-btn:hover {
-    background: #e5e7eb;
-  }
+.header-upload-btn:hover {
+  opacity: .9;
+}
 
-  /* VIDEO PLAYER */
-  .video-page {
-    width: 100%;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-  }
+/* ================= MAIN CONTENT ================= */
+.main-content {
+  flex: 1; /* KUNCI BIAR FOOTER KE BAWAH */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+/* ================= VIDEO ================= */
+.video-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 28px 16px 12px;
+}
+
+.video-card {
+  width: 860px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+  overflow: hidden;
+}
+
+.video-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #ffffff;
+}
+
+.video-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #ffffff;
+  display: block;
+}
+
+/* ================= SHARE BUTTON ================= */
+.share-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 24px;
+}
+
+.share-btn {
+  border: none;
+  background: #f3f4f6;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: #e5e7eb;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  border-top: 1px solid #f1f1f1;
+  padding: 18px 0 22px;
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+footer a {
+  color: inherit;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
   .video-card {
-    width: 800px;
-    max-width: 90vw;
-    aspect-ratio: 16/9;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 2px 16px rgba(0,0,0,.08);
-    overflow: hidden;
-    position: relative;
+    border-radius: 10px;
+    box-shadow: none;
   }
-
-  .video-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #000;
-  }
-
-  /* FOOTER */
-  footer {
-    margin-top: 20px;
-    text-align: center;
-    color: gray;
-    font-size: 14px;
-  }
-
-  footer a {
-    color: gray;
-    text-decoration: none;
-  }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    .video-card {
-      width: calc(100vw - 20px);
-      border-radius: 8px;
-      box-shadow: none;
-    }
-  }
+}
 </style>
+
+<!-- iklan -->
 <script src="https://petsrulefondness.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="main-header">
   <div class="header-container">
-    <span class="header-title">Videy</span>
-    <a class="header-upload-btn" href="/">Upload</a>
+    <div class="header-title">videy</div>
+    <a href="/" class="header-upload-btn">Upload</a>
   </div>
 </header>
 
-<!-- VIDEO SECTION -->
-<div class="video-page">
-  <div class="video-card">
-    <video
-      id="video"
-      controls
-      preload="metadata"
-      playsinline
-      webkit-playsinline
-      controlsList="nodownload noplaybackrate">
-      Your browser does not support the video tag.
-    </video>
+<main class="main-content">
+
+  <div class="video-page">
+    <div class="video-card">
+      <div class="video-inner">
+        <video
+          id="video"
+          controls
+          preload="metadata"
+          playsinline
+          webkit-playsinline
+          controlsList="nodownload noplaybackrate">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- FOOTER -->
+  <div class="share-wrap">
+    <button class="share-btn" id="shareBtn">⬆ Share video</button>
+  </div>
+
+</main>
+
 <footer>
-  © 2026 • Videy
+  <a href="#">Terms of Service</a>
+  ·
+  <a href="#">Report Abuse</a>
 </footer>
+<!-- ================= VIDEO SCRIPT ================= -->
+<script>
+const video = document.getElementById('video');
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
 
-   <!-- Histats.com  START  (aync)-->
+if (!id) {
+  alert('Video tidak ditemukan');
+  throw new Error('ID tidak ada');
+}
+
+const base = 'https://cdn.videy.co/' + id;
+
+video.src = base + '.mp4';
+
+video.onerror = () => {
+  if (!video.dataset.fallback) {
+    video.dataset.fallback = '1';
+    video.src = base + '.mov';
+  } else {
+    alert('Video tidak dapat diputar.');
+  }
+};
+
+/* SHARE */
+document.getElementById('shareBtn').onclick = () => {
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Link video disalin');
+  }
+};
+</script><!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4992245,4,0,0,0,00010000']);
 _Hasync.push(['Histats.fasi', '1']);
@@ -159,32 +241,7 @@ hs.src = ('//s10.histats.com/js15_as.js');
 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
-<!-- Histats.com  END  --><!-- VIDEO SCRIPT -->
-<script>
-  const video = document.getElementById('video');
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-
-  if (!id) {
-    alert('Video tidak ditemukan');
-    throw new Error('Video ID tidak ada di URL');
-  }
-
-  const base = `https://cdn.videy.co/${id}`;
-
-  // Load MP4 first
-  video.src = `${base}.mp4`;
-
-  // Fallback ke MOV jika MP4 error
-  video.onerror = () => {
-    if (!video.dataset.alt) {
-      video.dataset.alt = '1';
-      video.src = `${base}.mov`;
-    } else {
-      alert('Video tidak dapat diputar.');
-    }
-  };
-</script>
+<!-- Histats.com  END  -->
 
 </body>
 </html>
