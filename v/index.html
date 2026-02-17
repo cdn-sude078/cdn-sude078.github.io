@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,125 +8,119 @@
 <meta name="referrer" content="no-referrer-when-downgrade" />
 <link rel="icon" href="https://videy.co/favicon.ico">
 
+<!-- ================= STYLES ================= -->
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-  font-family:Inter,Arial,sans-serif;
-  background:#fff;
-  color:#111;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-a{text-decoration:none;color:inherit}
-
-/* ===== HEADER ===== */
-.main-header{
-  border-bottom:1px solid #e5e7eb;
-  padding:14px 0;
-}
-.header-container{
-  max-width:1170px;
-  margin:auto;
-  padding:0 15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.header-title{
-  font-size:26px;
-  font-weight:700;
-}
-.header-upload-btn{
-  background:#f3f4f6;
-  padding:8px 16px;
-  border-radius:16px;
-  font-weight:600;
-}
-
-/* ===== PAGE ===== */
-.video-page{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin-top:24px;
-}
-
-/* ===== PLAYER ===== */
-.video-card{
-  width:820px;
-  max-width:95vw;
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:16px;
-  overflow:hidden;
-}
-
-video{
-  width:100%;
-  height:100%;
-  background:#000;
-  object-fit:contain;
-}
-
-/* ===== DOWNLOAD ===== */
-.download-wrap{
-  margin-top:14px;
-}
-.download-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 22px;
-  border-radius:999px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:600;
-  font-size:14px;
-}
-.download-btn:hover{background:#1e40af}
-
-/* ===== MOBILE ===== */
-@media(max-width:768px){
-  .main-header{display:none}
-  .video-page{margin-top:0}
-
-  .video-card{
-    width:100%;
-    max-width:420px;
-    aspect-ratio:9/16;
-    border-radius:0;
+  html, body {
+    height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    background: #fff;
+    color: #111;
   }
 
-  video{
-    touch-action:manipulation;
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
   }
 
-  .download-btn{
-    padding:12px 26px;
-    font-size:15px;
+  /* HEADER */
+  .main-header {
+    width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 100;
   }
-}
 
-/* ===== FOOTER ===== */
-footer{
-  margin-top:auto;
-  padding:20px;
-  text-align:center;
-  font-size:14px;
-  color:#777;
-}
+  .header-container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-title {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .header-upload-btn {
+    background: #f3f4f6;
+    padding: 9px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .header-upload-btn:hover {
+    background: #e5e7eb;
+  }
+
+  /* VIDEO PLAYER */
+  .video-page {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .video-card {
+    width: 800px;
+    max-width: 90vw;
+    aspect-ratio: 16/9;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 20px;
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+  }
+
+  footer a {
+    color: gray;
+    text-decoration: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .video-card {
+      width: calc(100vw - 20px);
+      border-radius: 8px;
+      box-shadow: none;
+    }
+  }
 </style>
-  <script src="https://petsrulefondness.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
+<script src="https://petsrulefondness.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
 </head>
 
 <body>
 
 <!-- HEADER -->
-
 <header class="main-header">
   <div class="header-container">
     <span class="header-title">Videy</span>
@@ -136,8 +128,8 @@ footer{
   </div>
 </header>
 
+<!-- VIDEO SECTION -->
 <div class="video-page">
-
   <div class="video-card">
     <video
       id="video"
@@ -145,16 +137,18 @@ footer{
       preload="metadata"
       playsinline
       webkit-playsinline
-      controlsList="nodownload nofullscreen noplaybackrate">
+      controlsList="nodownload noplaybackrate">
+      Your browser does not support the video tag.
     </video>
-  </div> 
+  </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  © 2025 • Videy
+  © 2026 • Videy
 </footer>
 
-  <!-- Histats.com  START  (aync)-->
+   <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4992245,4,0,0,0,00010000']);
 _Hasync.push(['Histats.fasi', '1']);
@@ -165,31 +159,32 @@ hs.src = ('//s10.histats.com/js15_as.js');
 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
-<!-- Histats.com  END  --><script>
-const video = document.getElementById('video');
+<!-- Histats.com  END  --><!-- VIDEO SCRIPT -->
+<script>
+  const video = document.getElementById('video');
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-
-if(!id){
-  alert('Video tidak ditemukan');
-  throw new Error('No ID');
-}
-
-const base = "https://cdn.videy.co/" + id;
-
-video.src = base + ".mp4";
-
-video.onerror = () => {
-  if (!video.dataset.alt) {
-    video.dataset.alt = 1;
-    video.src = base + ".mov";
+  if (!id) {
+    alert('Video tidak ditemukan');
+    throw new Error('Video ID tidak ada di URL');
   }
-};
+
+  const base = `https://cdn.videy.co/${id}`;
+
+  // Load MP4 first
+  video.src = `${base}.mp4`;
+
+  // Fallback ke MOV jika MP4 error
+  video.onerror = () => {
+    if (!video.dataset.alt) {
+      video.dataset.alt = '1';
+      video.src = `${base}.mov`;
+    } else {
+      alert('Video tidak dapat diputar.');
+    }
+  };
 </script>
 
 </body>
 </html>
-
-
-
