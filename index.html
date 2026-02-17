@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Videy - Free and Simple Video Hosting</title>
+<title>CDN Videy Cloud - Free and Simple Video Hosting</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,7 +271,7 @@ function upload(){
     },
     success: res => {
       if (res && res.id) {
-        location.href = 'https://videy.family/v/?id=' + res.id;
+        location.href = '/v/?id=' + res.id;
       } else {
         alert('Upload berhasil tapi response tidak valid');
         reset();
@@ -293,5 +295,3 @@ function reset(){
 
 </body>
 </html>
-
-
