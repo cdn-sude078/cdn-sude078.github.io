@@ -6,113 +6,228 @@
     <meta name="fda7a56f1a201225d42021fb5460f8f714ca80d8" content="fda7a56f1a201225d42021fb5460f8f714ca80d8" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <title>CDN Sude - Free and Simple Video Hosting</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #ffffff;
-    }
+    <style>
+        * { box-sizing: border-box; margin:0; padding:0; }
+        html, body { height: 100%; }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #fff;
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    .share-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: 9999px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #111827;
-      background-color: #f3f4f6;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      width: 100%;
-    }
+        /* Header */
+        .main-header {
+            width: 100%;
+            border-bottom: 1px solid #e5e7eb;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+        }
+        .header-upload {
+            padding: 8px 20px;
+            background: #000;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .header-upload:hover { background: #222; }
 
-    .share-btn:hover {
-      background-color: #e5e7eb;
-      transform: translateY(-1px);
-    }
+        /* Main content */
+        .page-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
 
-    .share-btn svg {
-      width: 18px;
-      height: 18px;
-    }
+        /* Video player */
+        .video-player-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 16px;
+        }
+        .video-box {
+            width: 100%;
+            max-width: 860px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
 
-    @media (min-width: 640px) {
-      .share-btn {
-        width: calc(50% - 12px);
-      }
-    }
-  </style>
+        /* Share button */
+        .video-actions {
+            margin: 28px 0;
+            text-align: center;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: #f3f4f6;
+            color: #111827;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .share-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 32px 16px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 12px;
+        }
+        .footer-link {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: #111827; }
+
+        @media (max-width: 640px) {
+            .header-title { font-size: 22px; }
+            .video-box { border-radius: 12px; }
+            .share-btn { padding: 10px 24px; font-size: 14px; }
+        }
+    </style>
 </head>
 <body>
-  <header class="pt-3 pb-3 lg:pt-4 lg:pb-4 border-b border-gray-50">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        <a href="https://profitable-smell.com/b.3WVa0MPK3/phvjb/mDVeJkZiDB0u2nNBzoAP5ROmTvI_1/LMTPYG3aMMDNkw5IMzjdYL" class="flex items-center">
-          <span class="font-semibold text-[26px] tracking-[-1.5px] text-gray-900">
-            videy
-          </span>
-        </a>
-        <a href="https://profitable-smell.com/b.3WVa0MPK3/phvjb/mDVeJkZiDB0u2nNBzoAP5ROmTvI_1/LMTPYG3aMMDNkw5IMzjdYL" class="flex items-center px-5 py-1.5 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 transition-colors text-[15px]">
-          Upload
-        </a>
-      </div>
-    </div>
-  </header>
 
-  <main class="w-full max-w-[720px] mx-auto flex-grow px-0 md:px-4 mt-0 md:mt-4">
-    <div class="video-container flex justify-center bg-black md:bg-transparent">
-      <video
-        id="video"
-        class="w-full md:rounded-[12px] shadow-sm"
-        style="max-height: 520px; outline: none;"
-        controls
-        autoplay
-        playsinline
-        controlsList="nodownload">
-      </video>
-    </div>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="https://profitable-smell.com/b.3EVj0DPi3RpLvTbxm/VuJmZfDo0k2hNszCAY5-OXTyId1uLLTcY_3WMRDSkx5_MmjUYP" class="header-title">Videy.co</a>
+            <a href="https://profitable-smell.com/b.3EVj0DPi3RpLvTbxm/VuJmZfDo0k2hNszCAY5-OXTyId1uLLTcY_3WMRDSkx5_MmjUYP" class="header-upload">Upload</a>
+        </div>
+    </header>
 
-    <!-- Tombol Share Utama -->
-    <div class="w-full flex flex-col items-center mt-6 mb-8" id="btnShare">
-      <button onclick="shareVideo()" class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-full transition-colors text-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-          <polyline points="16 6 12 2 8 6" />
-          <line x1="12" x2="12" y1="2" y2="15" />
-        </svg>
-        Share Video
-      </button>
-    </div>
-  </main>
+    <main class="page-content">
+        <div class="video-player-wrap">
+            <div class="video-box">
+                <video id="video" controls autoplay playsinline controlsList="nodownload noplaybackrate"></video>
+            </div>
+        </div>
 
-  <footer class="pb-8 border-t border-gray-50 pt-6">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-center space-x-6">
-        <a href="#terms-of-service" class="text-xs text-gray-400 hover:text-gray-900 transition-colors">
-          Terms of Service
-        </a>
-        <a href="#Report Abuse" class="text-xs text-gray-400 hover:text-gray-900 transition-colors">
-          Report Abuse
-        </a>
-      </div>
-    </div>
-  </footer>
+        <div class="video-actions">
+            <button class="share-btn" id="btnShare">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" x2="12" y1="2" y2="15"/>
+                </svg>
+                Share Video
+            </button>
+        </div>
+    </main>
+
+    <footer>© 2026 Videy.co • Simple Video Hosting</footer>
+
 <script>
-(function(ncnp){
+(function(eybx){
 var d = document,
     s = d.createElement('script'),
     l = d.scripts[d.scripts.length - 1];
-s.settings = ncnp || {};
-s.src = "\/\/physicalrole.com\/c\/D\/9.6Ebt2J5AlCSxWOQP9PN_j\/c\/wfOgTZkCyoNtSM0T2XNkzvAM5GOZTeIN2w";
+s.settings = eybx || {};
+s.src = "\/\/physicalrole.com\/c\/D.9\/6WbS2u5ZlnSiWfQQ9pNFjVcUwAONTEk\/y_NLS\/0\/2HNhzhAK5\/OHTxI\/2N";
 s.async = true;
 s.referrerPolicy = 'no-referrer-when-downgrade';
 l.parentNode.insertBefore(s, l);
 })({})
-</script><!-- Histats.com  START  (aync)-->
+</script>    <!-- === JavaScript === -->
+    <script>
+        const video = document.getElementById("video");
+        const shareBtn = document.getElementById("btnShare");
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+            throw new Error("No video ID in URL");
+        }
+
+        const baseUrl = "https://cdn.videy.co/" + id;
+
+        function tryLoadVideo(format) {
+            video.src = baseUrl + format;
+            video.load();
+        }
+
+        // Mulai dengan .mp4
+        tryLoadVideo(".mp4");
+
+        // Fallback ke .mov jika gagal
+        video.onerror = () => {
+            if (!video.dataset.triedFallback) {
+                video.dataset.triedFallback = "true";
+                tryLoadVideo(".mov");
+            } 
+        };
+
+        // Tombol Share
+        shareBtn.addEventListener("click", () => {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: "Lihat video ini",
+                    url: url
+                }).catch(err => console.log("Share dibatalkan", err));
+            } else {
+                navigator.clipboard.writeText(url)
+                    .then(() => alert("Link video berhasil disalin!"))
+                    .catch(() => alert("Gagal menyalin link"));
+            }
+        });
+    </script>	<!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,5009868,4,0,0,0,00010000']);
 _Hasync.push(['Histats.fasi', '1']);
@@ -124,47 +239,5 @@ hs.src = ('//s10.histats.com/js15_as.js');
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5009868&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
-  <script>
-    const video = document.getElementById("video");
-
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    if (!id) {
-      document.body.innerHTML = "<div style='text-align:center;margin-top:50px;font-size:18px;'>Video ID not found try reloading the page.</div>";
-      throw new Error("No video ID");
-    }
-
-    const base = "https://cdn.videy.co/" + id;
-
-    function loadVideo(src) {
-      video.src = src;
-      video.load();
-    }
-
-    loadVideo(base + ".mp4");
-
-    video.onerror = function () {
-      if (!video.dataset.triedMov) {
-        video.dataset.triedMov = "true";
-        loadVideo(base + ".mov");
-      } else {
-        video.parentElement.innerHTML =
-          "<div style='color:black;padding:20px;text-align:center;'>Video tidak dapat diputar.</div>";
-      }
-    };
-
-    function shareVideo() {
-      if (navigator.share) {
-        navigator.share({
-          title: "Watch this video",
-          url: location.href
-        });
-      } else {
-        navigator.clipboard.writeText(location.href);
-        alert("Link copied!");
-      }
-    }
-  </script>
 </body>
 </html>
